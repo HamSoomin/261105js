@@ -16,28 +16,26 @@ $(function() {
       let posY = e.pageY;
 
       /*** はみ出し防止処理 ***/
-      // span要素が#thumb内に収まるよう調整（横位置）
-      if (e.pageX <= $("#thumb").offset().left + 20) {
+      if (e.pageX <= $("#thumb").offset().left + 50) {
         posX = $("#thumb").offset().left;
-      } else if (e.pageX >= $("#thumb").offset().left + $("#thumb").width() - 20) {
-        posX = $("#thumb").offset().left + $("#thumb").width() - 40;
+      } else if (e.pageX >= $("#thumb").offset().left + $("#thumb").width() - 50) {
+        posX = $("#thumb").offset().left + $("#thumb").width() - 100;
       } else {
         // カーソル中央に来るように調整
-        posX -= 20;
+        posX -= 50;
       }
 
-      // span要素が#thumb内に収まるよう調整（縦位置）
-      if (e.pageY <= $("#thumb").offset().top + 20) {
+      if (e.pageY <= $("#thumb").offset().top + 50) {
         posY = $("#thumb").offset().top;
-      } else if (e.pageY >= $("#thumb").offset().top + $("#thumb").height() - 20) {
-        posY = $("#thumb").offset().top + $("#thumb").height() - 40;
+      } else if (e.pageY >= $("#thumb").offset().top + $("#thumb").height() - 50) {
+        posY = $("#thumb").offset().top + $("#thumb").height() - 100;
       } else {
         // カーソル中央に来るように調整
-        posY -= 20;
+        posY -= 50;
       }
 
       // span要素の位置をカーソル座標に合わせる
-      $("span").css({ "top": posY, "left": posX });
+      $("span").css({ "top": posY - $("#thumb").offset().top, "left": posX - $("#thumb").offset().left });
 
       // 収まっている：span要素を表示
       $("span").show();
