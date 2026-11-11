@@ -1,58 +1,52 @@
 $(function() {
+  // マウスを動かす
   $(window).mousemove(function(e) {
-    let $thumb = $("#thumb");
-    let thumbOffset = $thumb.offset();
-    let thumbWidth = $thumb.width();
-    let thumbHeight = $thumb.height();
-
     if (
-      e.pageX > thumbOffset.left
+      e.pageX > $("#thumb").offset().left
       &&
-      e.pageX <= thumbOffset.left + thumbWidth
+      e.pageX <= $("#thumb").offset().left + $("#thumb").width()
       &&
-      e.pageY >= thumbOffset.top
+      e.pageY >= $("#thumb").offset().top
       &&
-      e.pageY <= thumbOffset.top + thumbHeight
+      e.pageY <= $("#thumb").offset().top + $("#thumb").height()
     ) {
 
+      // 座標を取得
       let posX = e.pageX;
       let posY = e.pageY;
 
-      // 100px 렌즈 기준 하미다시(범위 초과) 방지
-      if (e.pageX <= thumbOffset.left + 50) {
-        posX = thumbOffset.left;
-      } else if (e.pageX >= thumbOffset.left + thumbWidth - 50) {
-        posX = thumbOffset.left + thumbWidth - 100;
+      /*** はみ出し防止処理 ***/
+      // span要素が#thumb内に収まるよう調整（横位置）
+      if (e.pageX <= $("#thumb").offset().left + 20) {
+        posX = $("#thumb").offset().left;
+      } else if (e.pageX >= $("#thumb").offset().left + $("#thumb").width() - 20) {
+        posX = $("#thumb").offset().left + $("#thumb").width() - 40;
       } else {
-        posX -= 50;
+        // カーソル中央に来るように調整
+        posX -= 20;
       }
 
-      if (e.pageY <= thumbOffset.top + 50) {
-        posY = thumbOffset.top;
-      } else if (e.pageY >= thumbOffset.top + thumbHeight - 50) {
-        posY = thumbOffset.top + thumbHeight - 100;
+      // span要素が#thumb内に収まるよう調整（縦位置）
+      if (e.pageY <= $("#thumb").offset().top + 20) {
+        posY = $("#thumb").offset().top;
+      } else if (e.pageY >= $("#thumb").offset().top + $("#thumb").height() - 20) {
+        posY = $("#thumb").offset().top + $("#thumb").height() - 40;
       } else {
-        posY -= 50;
+        // カーソル中央に来るように調整
+        posY -= 20;
       }
 
-      let relativeX = posX - thumbOffset.left;
-      let relativeY = posY - thumbOffset.top;
+      // span要素の位置をカーソル座標に合わせる
+      $("span").css({ "top": posY, "left": posX });
 
-      // 렌즈 위치 설정
-      $("span").css({ "top": relativeY, "left": relativeX }).show();
+      // 収まっている：span要素を表示
+      $("span").show();
 
-      // 🌟 [핵심] 썸네일과 줌 이미지의 가로/세로 비율 자동 계산
-      let zoomImg = $("#zoom img");
-      let scaleX = zoomImg[0].naturalWidth / thumbWidth;   // 가로 확대 배율
-      let scaleY = zoomImg[0].naturalHeight / thumbHeight; // 세로 확대 배율
-
-      // 줌 이미지 위치 이동 (비율 왜곡 방지)
-      zoomImg.css({
-        "top": -relativeY * scaleY + "px",
-        "left": -relativeX * scaleX + "px"
-      });
-
+      // zoom.jpgの表示位置を調整
+      $("#zoom img").css("top", ($("#thumb").offset().top - posY) * 10);
+      $("#zoom img").css("left", ($("#thumb").offset().left - posX) * 10);
     } else {
+      // 収まっていない：span要素を非表示
       $("span").hide();
     }
   });
