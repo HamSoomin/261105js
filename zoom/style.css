@@ -1,0 +1,61 @@
+@charset "utf-8";
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: #83828a;
+}
+
+#wrapper {
+  width: 830px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+h1 {
+  margin: 50px 0;
+  color: #f5da49;
+  font-size: 3em;
+  text-align: center;
+}
+
+#thumb,
+#zoom {
+  border: 1px solid #f5da49;
+}
+
+#thumb {
+  width: 400px;
+  height: 400px;
+  float: left;
+}
+
+#thumb img {
+  width: 100%;
+}
+
+#thumb span {
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  display: none;
+  /* display: block; */
+  border: 1px solid #83828a;
+  background: rgba(131, 130, 138, .5);
+}
+
+#zoom {
+  width: 400px;
+  height: 400px;
+  float: right;
+  overflow: hidden;
+  position: relative;
+}
+
+#zoom img {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
