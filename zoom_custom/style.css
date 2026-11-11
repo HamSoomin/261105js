@@ -30,12 +30,14 @@ h1 {
 
 #thumb {
   width: 400px;
-  height: auto;
+  position: relative;
   float: left;
 }
 
 #thumb img {
   width: 100%;
+  height: auto;
+  display: block;
 }
 
 #thumb span {
