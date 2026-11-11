@@ -5,7 +5,7 @@
 }
 
 body {
-  background: #fff;
+  background: #83828a;
 }
 
 #wrapper {
@@ -42,17 +42,17 @@ h1 {
   height: 100px;
   position: absolute;
   display: none;
-  /* display: block; */
   border: 1px solid #83828a;
   background: rgba(131, 130, 138, .5);
+  pointer-events: none;
 }
 
 #zoom {
   width: 1000px;
   height: 600px;
-  margin: 0 auto 50px;
   overflow: hidden;
   position: relative;
+  margin: 0 auto 50px;
 }
 
 #zoom img {
