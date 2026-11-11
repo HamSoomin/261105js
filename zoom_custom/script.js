@@ -16,7 +16,6 @@ $(function() {
       let posY = e.pageY;
 
       /*** はみ出し防止処理 ***/
-      // span要素が#thumb内に収まるよう調整（横位置）
       if (e.pageX <= $("#thumb").offset().left + 50) {
         posX = $("#thumb").offset().left;
       } else if (e.pageX >= $("#thumb").offset().left + $("#thumb").width() - 50) {
@@ -26,7 +25,6 @@ $(function() {
         posX -= 50;
       }
 
-      // span要素が#thumb内に収まるよう調整（縦位置）
       if (e.pageY <= $("#thumb").offset().top + 50) {
         posY = $("#thumb").offset().top;
       } else if (e.pageY >= $("#thumb").offset().top + $("#thumb").height() - 50) {
