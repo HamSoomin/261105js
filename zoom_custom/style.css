@@ -7,11 +7,11 @@
 }
 
 body {
-  background: #83828a;
+  background: #fff;
 }
 
 #wrapper {
-  width: 1000px;
+  width: 830px;
   margin: 0 auto;
   overflow: hidden;
 }
@@ -29,33 +29,31 @@ h1 {
 }
 
 #thumb {
-  width: 1000px;
-  position: relative;
-  margin-bottom: 40px;
+  width: 400px;
+  height: 400px;
+  float: left;
 }
 
 #thumb img {
   width: 100%;
-  height: auto;
-  display: block;
 }
 
 #thumb span {
-  width: 100px;
-  height: 100px;
+  width: 40px;
+  height: 40px;
   position: absolute;
   display: none;
-  border: 1px solid #83828a;
+  /* display: block; */
+  border: 1px solid #860906;
   background: rgba(131, 130, 138, .5);
-  pointer-events: none;
 }
 
 #zoom {
-  width: 1000px;
-  height: 600px;
+  width: 400px;
+  height: 400px;
+  float: right;
   overflow: hidden;
   position: relative;
-  margin: 0 auto 50px;
 }
 
 #zoom img {
