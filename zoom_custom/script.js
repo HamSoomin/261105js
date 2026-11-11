@@ -37,7 +37,7 @@ $(function() {
       }
 
       // span要素の位置をカーソル座標に合わせる
-      $("span").css({ "top": posY, "left": posX });
+      $("span").css({ "top": posY - $("#thumb").offset().top, "left": posX - $("#thumb").offset().left });
 
       // 収まっている：span要素を表示
       $("span").show();
