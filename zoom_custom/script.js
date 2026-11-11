@@ -1,50 +1,52 @@
 $(function() {
   // マウスを動かす
   $(window).mousemove(function(e) {
+    let thumbOffset = $("#thumb").offset();
+    let thumbWidth = $("#thumb").width();
+    let thumbHeight = $("#thumb").height();
+
+    // 마우스가 #thumb 영역 안에 있는지 확인
     if (
-      e.pageX > $("#thumb").offset().left
+      e.pageX > thumbOffset.left
       &&
-      e.pageX <= $("#thumb").offset().left + $("#thumb").width()
+      e.pageX <= thumbOffset.left + thumbWidth
       &&
-      e.pageY >= $("#thumb").offset().top
+      e.pageY >= thumbOffset.top
       &&
-      e.pageY <= $("#thumb").offset().top + $("#thumb").height()
+      e.pageY <= thumbOffset.top + thumbHeight
     ) {
 
-      // 座標を取得
-      let posX = e.pageX;
-      let posY = e.pageY;
+      // #thumb 내부에서의 마우스 상대 좌표 계산
+      let offsetX = e.pageX - thumbOffset.left;
+      let offsetY = e.pageY - thumbOffset.top;
 
-      /*** はみ出し防止処理 ***/
-      if (e.pageX <= $("#thumb").offset().left + 50) {
-        posX = $("#thumb").offset().left;
-      } else if (e.pageX >= $("#thumb").offset().left + $("#thumb").width() - 50) {
-        posX = $("#thumb").offset().left + $("#thumb").width() - 100;
-      } else {
-        // カーソル中央に来るように調整
-        posX -= 50;
-      }
+      let lensSize = 100;          // 렌즈(span) 크기
+      let halfLens = lensSize / 2; // 50px (마우스가 렌즈 정중앙에 오도록)
 
-      if (e.pageY <= $("#thumb").offset().top + 50) {
-        posY = $("#thumb").offset().top;
-      } else if (e.pageY >= $("#thumb").offset().top + $("#thumb").height() - 50) {
-        posY = $("#thumb").offset().top + $("#thumb").height() - 100;
-      } else {
-        // カーソル中央に来るように調整
-        posY -= 50;
-      }
+      // 렌즈의 좌상단 기준 좌표 계산
+      let posX = offsetX - halfLens;
+      let posY = offsetY - halfLens;
 
-      // span要素の位置をカーソル座標に合わせる
-      $("span").css({ "top": posY - $("#thumb").offset().top, "left": posX - $("#thumb").offset().left });
+      // #thumb 밖으로 튀어나가지 않도록 범위 제한
+      if (posX < 0) posX = 0;
+      if (posY < 0) posY = 0;
+      if (posX > thumbWidth - lensSize) posX = thumbWidth - lensSize;
+      if (posY > thumbHeight - lensSize) posY = thumbHeight - lensSize;
 
-      // 収まっている：span要素を表示
-      $("span").show();
+      // 1. span(렌즈) 위치 설정 (#thumb 기준 상대 좌표)
+      $("span").css({ 
+        "top": posY + "px", 
+        "left": posX + "px" 
+      }).show();
 
-      // zoom.jpgの表示位置を調整
-      $("#zoom img").css("top", ($("#thumb").offset().top - posY) * 10);
-      $("#zoom img").css("left", ($("#thumb").offset().left - posX) * 10);
+      // 2. zoom 이미지 위치 조정 (10배 확대)
+      $("#zoom img").css({
+        "top": -posY * 10 + "px",
+        "left": -posX * 10 + "px"
+      });
+
     } else {
-      // 収まっていない：span要素を非表示
+      // 영역을 벗어났을 때: span 숨기기
       $("span").hide();
     }
   });
